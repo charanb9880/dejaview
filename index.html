@@ -10,361 +10,459 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    .header-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
 
-    .logo {
-      height: 80px;
-      width: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: #0f0c29;
-      box-shadow: none;
-      border: none;
-    }
-
-    .event-title {
-      font-size: 3.2rem;
-      background: linear-gradient(to right, #ff6ec4, #7873f5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-      margin: 0;
-    }
-
+    /* Base Styles (Keep mostly as is) */
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 0; /* Add margin reset */
+        padding: 0; /* Add padding reset */
     }
 
     body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
-      color: #ecf0f1;
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
+        color: #ecf0f1;
+        line-height: 1.6; /* Improve readability */
     }
 
+    /* Header */
     header {
-      background: linear-gradient(to right, #2b5876, #4e4376);
-      color: white;
-      padding: 3rem 2rem 2rem 2rem;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      position: relative;
+        background: linear-gradient(to right, #2b5876, #4e4376);
+        color: white;
+        padding: 2rem 1rem; /* Adjust padding for smaller screens */
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .header-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem; /* Reduce gap for smaller screens */
+        flex-wrap: wrap;
+        margin-bottom: 1rem; /* Add space below header row */
+    }
+
+    .logo {
+        height: 60px; /* Slightly smaller logo */
+        width: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #0f0c29;
+        box-shadow: none;
+        border: none;
     }
 
     .event-title {
-      font-size: 3.5rem;
-      background: linear-gradient(to right, #ff6ec4, #7873f5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-shadow: none;
+        font-size: 2.5rem; /* Adjust initial font size */
+        background: linear-gradient(to right, #ff6ec4, #7873f5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text; /* Standard property */
+        text-fill-color: transparent; /* Standard property */
+        font-weight: 700;
+        margin: 0;
+        text-shadow: none;
+        flex-basis: 100%; /* Allow title to take full width if needed */
+        order: 2; /* Ensure title is below logos on wrap */
     }
 
-    header .logos {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2rem;
+     /* Ensure logos are ordered correctly when wrapped */
+    .header-row img:first-of-type {
+        order: 1;
+    }
+     .header-row img:last-of-type {
+        order: 3;
     }
 
-    header .logos img {
-      height: 80px;
-      width: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: none;
-      border: none;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #00ffff;
-      text-shadow: 0 0 5px rgba(0,255,255,0.8);
+    header p {
+        font-size: 0.9rem; /* Adjust subtitle size */
     }
 
 
+
+    /* Sections */
     section {
-      padding: 3rem 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      margin: 2rem auto;
-      max-width: 1000px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        padding: 2rem 1rem; /* Adjust padding */
+        background: rgba(255, 255, 255, 0.05);
+        margin: 1.5rem auto; /* Adjust margin */
+        max-width: 95%; /* Use percentage for better flexibility */
+        border-radius: 15px; /* Slightly smaller radius */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
+
+    /* Limit max width on larger screens */
+    @media screen and (min-width: 1024px) {
+        section {
+            max-width: 1000px;
+        }
+    }
+
 
     h2 {
-      text-align: center;
-      color: #00ffff;
-      margin-bottom: 1.5rem;
+        text-align: center;
+        color: #00ffff;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem; /* Adjust heading size */
     }
 
+    h3 {
+         font-size: 1.3rem; /* Adjust heading size */
+         margin-bottom: 0.5rem; /* Add space below h3 */
+         color: #f0f0f0; /* Ensure visibility */
+    }
+
+    /* Timeline (Horizontal - already scrollable, good for mobile) */
     .timeline {
-      display: flex;
-      overflow-x: auto;
-      gap: 1.5rem;
-      padding: 1rem;
-      scroll-snap-type: x mandatory;
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem; /* Adjust gap */
+        padding: 1rem 0.5rem; /* Adjust padding */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
     .event {
-      min-width: 220px;
-      background: #1f1c2c;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      padding: 1rem;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      transition: transform 0.3s;
+        min-width: 200px; /* Adjust min-width */
+        background: #1f1c2c;
+        border-radius: 12px; /* Adjust radius */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        padding: 1rem;
+        flex: 0 0 auto; /* Prevent shrinking/growing */
+        scroll-snap-align: start;
+        transition: transform 0.3s;
     }
 
     .event:hover {
-      transform: scale(1.05);
+        transform: scale(1.03); /* Slightly reduce hover effect */
     }
 
-    .merch-item {
-      background: #1f1c2c;
-      border-radius: 16px;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-
-    ul, ol {
-      padding-left: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .register-btn {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      color: white;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      transition: background 0.3s ease;
-    }
-
-    .register-btn:hover {
-      background: #005bea;
-    }
-
-    footer {
-      background: #1b1f3b;
-      color: white;
-      text-align: center;
-      padding: 1.5rem 1rem;
-      margin-top: 4rem;
-    }
-
-    .social-icons {
-      margin-top: 1rem;
-    }
-
-    .social-icons a {
-      color: white;
-      font-size: 1.5rem;
-      margin: 0 0.5rem;
-      transition: color 0.3s;
-    }
-
-    .social-icons a:hover {
-      color: #00ffff;
-    }
-
+    /* Vertical Timeline (Already has mobile styles, keep them) */
     .vertical-timeline {
-      position: relative;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem 0;
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 0;
     }
 
     .vertical-timeline::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      background-color: #00ffff;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+        content: '';
+        position: absolute;
+        width: 4px; /* Thinner line */
+        background-color: #00ffff;
+        top: 0;
+        bottom: 0;
+        left: 30px; /* Default to mobile position */
+        transform: none; /* Remove transform */
+        margin-left: -2px; /* Center the line */
     }
 
     .timeline-block {
-      position: relative;
-      width: 50%;
-      padding: 1rem 2rem;
-      box-sizing: border-box;
+        position: relative;
+        width: 100%; /* Default to mobile */
+        padding: 1rem 1rem 1rem 50px; /* Adjust padding for mobile */
+        box-sizing: border-box;
     }
 
-    .timeline-block.left {
-      left: 0;
-    }
-
+    .timeline-block.left,
     .timeline-block.right {
-      left: 50%;
+         left: 0; /* Reset left positioning for mobile */
+         width: 100%;
+         padding-left: 50px; /* Space for line/dot */
+         padding-right: 1rem;
     }
+
 
     .timeline-block::before {
-      content: '';
-      position: absolute;
-      top: 20px;
-      width: 20px;
-      height: 20px;
-      background-color: #00ffff;
-      border: 3px solid white;
-      border-radius: 50%;
-      z-index: 1;
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 20px; /* Position relative to the line */
+        width: 16px; /* Smaller dot */
+        height: 16px;
+        background-color: #00ffff;
+        border: 2px solid white; /* Thinner border */
+        border-radius: 50%;
+        z-index: 1;
     }
 
-    .timeline-block.left::before {
-      right: -10px;
-    }
-
+    /* Reset left/right adjustments for mobile */
+    .timeline-block.left::before,
     .timeline-block.right::before {
-      left: -10px;
+        left: 20px; /* Consistent position */
+        right: auto; /* Remove right positioning */
     }
 
     .timeline-block .content {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem; /* Adjust padding */
+        border-radius: 10px; /* Adjust radius */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    @media screen and (max-width: 768px) {
-      .timeline-block,
-      .timeline-block.left,
-      .timeline-block.right {
-        width: 100%;
-        left: 0;
-        padding-left: 4rem;
-        padding-right: 1rem;
-      }
+    /* Apply desktop timeline styles only on larger screens */
+    @media screen and (min-width: 769px) {
+         .vertical-timeline::after {
+             left: 50%; /* Center line on desktop */
+             margin-left: -3px;
+             width: 6px;
+         }
 
-      .timeline-block::before {
-        left: 20px;
-      }
+        .timeline-block {
+            width: 50%;
+            padding: 1rem 2rem; /* Restore desktop padding */
+        }
 
-      .vertical-timeline::after {
-        left: 30px;
-      }
+        .timeline-block.left {
+            left: 0;
+            padding-left: 2rem;
+            padding-right: calc(2rem + 10px); /* Space for dot */
+        }
+
+        .timeline-block.right {
+            left: 50%;
+             padding-left: calc(2rem + 10px); /* Space for dot */
+             padding-right: 2rem;
+        }
+
+        .timeline-block::before {
+             left: auto; /* Allow right positioning */
+             width: 20px;
+             height: 20px;
+             border: 3px solid white;
+        }
+
+        .timeline-block.left::before {
+            right: -10px;
+            left: auto;
+        }
+
+        .timeline-block.right::before {
+            left: -10px;
+            right: auto;
+        }
     }
 
+
+    /* Prize Section */
     .prize-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-top: 2rem;
+        display: flex;
+        flex-direction: column; /* Stack vertically by default */
+        gap: 1.5rem; /* Adjust gap */
+        margin-top: 2rem;
     }
 
     .prize-card {
-      flex: 1 1 250px;
-      background: #2d2a44;
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      color: #f0f0f0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
+        /* flex: 1 1 250px; */ /* Remove flex-basis for stacking */
+        background: #2d2a44;
+        border-radius: 12px; /* Adjust radius */
+        padding: 1.5rem 1rem; /* Adjust padding */
+        text-align: center;
+        color: #f0f0f0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
     }
+
+     /* Apply flex row layout only on larger screens */
+     @media screen and (min-width: 600px) {
+        .prize-container {
+            flex-direction: row; /* Side-by-side on larger screens */
+             flex-wrap: wrap; /* Allow wrapping if needed */
+            justify-content: center;
+        }
+         .prize-card {
+             flex: 1 1 220px; /* Allow cards to grow/shrink */
+             max-width: 300px; /* Optional: Limit max width */
+         }
+     }
+
 
     .prize-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+        transform: scale(1.03);
+        box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
     }
 
-    .gold {
-      border-top: 4px solid gold;
-      background: #333333;
-      color: #ffd700;
-    }
+    .gold { border-top: 4px solid gold; background: #333333; color: #ffd700; }
+    .silver { border-top: 4px solid silver; background: #2f2f2f; color: #c0c0c0; }
+    .bronze { border-top: 4px solid #cd7f32; background: #3a3a3a; color: #cd7f32; }
 
-    .silver {
-      border-top: 4px solid silver;
-      background: #2f2f2f;
-      color: #c0c0c0;
-    }
-
-    .bronze {
-      border-top: 4px solid #cd7f32;
-      background: #3a3a3a;
-      color: #cd7f32;
-    }
-
-    #connect {
-      
-      padding: 3rem 2rem;
-      color: #ffffff;
-      text-align: center;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      margin-top: 4rem;
-    }
-
-    #connect h2 {
-      color: #ff6ec4;
-      margin-bottom: 1.5rem;
-    }
-
-    #connect i {
-      font-size: 3rem;
-      color: #ff6ec4;
-      transition: color 0.3s;
-    }
-
-    #connect i:hover {
-      color: #00ffff;
+    /* Notes and Messages */
+    .certificate-note, .goodies-message {
+        padding: 1.5rem 1rem; /* Adjust padding */
+        margin: 2rem 0; /* Adjust margin */
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .certificate-note {
-      background: #2f2f2f;
-      color: #dfe1de;
-      padding: 1rem;
-      margin-top: 2rem;
-      border-radius: 10px;
-      font-weight: bold;
+        background: #2f2f2f;
+        color: #dfe1de;
+        font-weight: bold;
     }
+
     .goodies-message {
-  background: linear-gradient(to right, #00c6ff, #0072ff); /* updated gradient */
-  padding: 2rem;
-  margin: 2rem 0;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+    }
 
-.goodies-message p {
-  color: #ffffff;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-}
+    .goodies-message p {
+        color: #ffffff;
+        font-size: 1.1rem; /* Adjust font size */
+        margin-bottom: 1.5rem;
+    }
 
-.goodies-message a {
-  padding: 1rem 2rem;
-  background: linear-gradient(to right, #ffffff, #00ffff); /* button gradient updated */
-  color: #1b1f3b;
-  border-radius: 40px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
+    .goodies-message a {
+        padding: 0.8rem 1.8rem; /* Adjust button padding */
+        background: linear-gradient(to right, #ffffff, #00ffff);
+        color: #1b1f3b;
+        border-radius: 40px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease, color 0.3s ease; /* Add color transition */
+        display: inline-block; /* Ensure padding applies correctly */
+    }
 
-.goodies-message a:hover {
-  background: #00c6ff;
-  color: white;
-}
+    .goodies-message a:hover {
+        background: #00c6ff;
+        color: white;
+    }
+
+    /* Rules */
+    #rules ul, #rules ol {
+        padding-left: 1.5rem; /* Keep indentation */
+        line-height: 1.7; /* Slightly increase for readability */
+    }
+    #rules li {
+        margin-bottom: 0.5rem; /* Add space between rules */
+    }
+
+    /* Buttons */
+    .register-btn {
+        display: inline-block;
+        margin-top: 1.5rem; /* Adjust margin */
+        padding: 0.8rem 1.8rem; /* Adjust padding */
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        color: white;
+        border-radius: 40px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        transition: background 0.3s ease;
+        text-align: center; /* Ensure text is centered */
+    }
+
+    #about .register-btn { /* Center button in about section */
+       display: block;
+       width: fit-content;
+       margin-left: auto;
+       margin-right: auto;
+    }
+
+
+    .register-btn:hover {
+        background: #005bea;
+    }
+
+    /* Connect Section */
+    #connect {
+        padding: 2rem 1rem; /* Adjust padding */
+        color: #ffffff;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        margin-top: 3rem; /* Adjust margin */
+    }
+
+    #connect h2 {
+        color: #ff6ec4;
+        margin-bottom: 1.5rem;
+    }
+
+    #connect i {
+        font-size: 2.5rem; /* Adjust icon size */
+        color: #ff6ec4;
+        transition: color 0.3s;
+    }
+
+    #connect i:hover {
+        color: #00ffff;
+    }
+
+    /* Footer */
+    footer {
+        background: #1b1f3b;
+        color: white;
+        text-align: center;
+        padding: 1.5rem 1rem; /* Adjust padding */
+        margin-top: 3rem; /* Adjust margin */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    /* Mobile Navigation Styles (Using Media Query) */
+    @media screen and (max-width: 768px) {
+        .event-title {
+            font-size: 2.2rem; /* Further reduce title size on mobile */
+        }
+
+        .nav-links {
+            display: none; /* Hide links by default on mobile */
+            flex-direction: column;
+            width: 100%;
+            background: #1b1f3b;
+            position: absolute; /* Position absolutely below the nav bar */
+            top: 100%; /* Start right below the nav container */
+            left: 0;
+            padding-top: 0.5rem; /* Add some space */
+            padding-bottom: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add shadow for visibility */
+        }
+
+        .nav-links.active {
+            display: flex; /* Show when active */
+        }
+
+        .nav-links a {
+            padding: 0.8rem 1rem; /* Adjust padding for vertical layout */
+            width: 100%;
+            text-align: left;
+            border-top: 1px solid #333; /* Separator lines */
+        }
+         .nav-links a:first-child {
+             border-top: none; /* No border for the first item */
+         }
+
+        .hamburger {
+            display: block; /* Show hamburger */
+        }
+
+        /* Ensure nav container doesn't shrink */
+        nav {
+           justify-content: space-between; /* Align hamburger and potential brand */
+           position: sticky; /* Ensure it stays sticky */
+        }
+
+        /* Adjust vertical timeline line position for mobile (redundant but safe) */
+        .vertical-timeline::after {
+            left: 30px;
+             margin-left: -2px; /* Center the 4px line */
+        }
+
+        .timeline-block,
+        .timeline-block.left,
+        .timeline-block.right {
+            width: 100%;
+            left: 0;
+            padding-left: 50px; /* Space from line */
+            padding-right: 1rem;
+        }
+
+        .timeline-block::before {
+            left: 20px; /* Position dot relative to line */
+        }
+    }
+
+
 
 
   </style>
@@ -379,6 +477,14 @@
         <p style="text-align: center;">Presented by ASCEND Club - CSBS Department</p>
       </header>
 
+
+      
+      <script>
+        function toggleMenu() {
+          document.getElementById("navLinks").classList.toggle("active");
+        }
+      </script>
+            
 
   <section id="about">
     <h2>About the Event</h2>
@@ -408,6 +514,18 @@
         <div class="content">
           <h3>Break</h3>
           <p>1:00 PM - Short break for refreshments</p>
+        </div>
+      </div>
+      <div class="timeline-block right">
+        <div class="content">
+          <h3>Judgement</h3>
+          <p>2:30 PM - Presentation And Judgement</p>
+        </div>
+      </div>
+      <div class="timeline-block left">
+        <div class="content">
+          <h3>Result Announcement</h3>
+          <p>3:00 PM - Announcement Of Winners and Prize Distribution</p>
         </div>
       </div>
     </div>
@@ -453,7 +571,7 @@
         Design & Aesthetics   30%,
         Functionality   30%,
         Innovation & Creativity   20%,
-        Code Quality & Structure   10%,
+        Code Quality & Structure   10%
         Responsiveness/User Experience   10%</li>
     </ul>
   </section>
