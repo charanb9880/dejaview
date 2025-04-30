@@ -90,27 +90,6 @@
       text-shadow: 0 0 5px rgba(0,255,255,0.8);
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      background: #1b1f3b;
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav a {
-      color: #ffffff;
-      margin: 0 1.5rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #00ffff;
-    }
 
     section {
       padding: 3rem 2rem;
@@ -386,59 +365,6 @@
   background: #00c6ff;
   color: white;
 }
-/* Hide hamburger on desktop */
-.hamburger {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: white;
-}
-
-/* Default state for nav-links */
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-/* Mobile styles */
-@media screen and (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: #1b1f3b;
-    margin-top: 1rem;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links a {
-    padding: 1rem 2rem;
-    width: 100%;
-    text-align: left;
-    border-top: 1px solid #333;
-  }
-}
-
 
 
   </style>
@@ -453,29 +379,6 @@
         <p style="text-align: center;">Presented by ASCEND Club - CSBS Department</p>
       </header>
 
-      <nav>
-        <div class="nav-container">
-
-          <div class="hamburger" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-          </div>
-      
-          <div class="nav-links" id="navLinks">
-            <a href="#about">About</a>
-            <a href="#flow">Schedule</a>
-            <a href="#merch">Merchandise</a>
-            <a href="#prizes">Prizes</a>
-            <a href="#rules">Rules</a>
-            <a href="https://forms.gle/jXBvNanBoLsJnJXC9" target="_blank">Register</a>
-          </div>
-        </div>
-      </nav>
-      <script>
-        function toggleMenu() {
-          document.getElementById("navLinks").classList.toggle("active");
-        }
-      </script>
-            
 
   <section id="about">
     <h2>About the Event</h2>
@@ -505,18 +408,6 @@
         <div class="content">
           <h3>Break</h3>
           <p>1:00 PM - Short break for refreshments</p>
-        </div>
-      </div>
-      <div class="timeline-block right">
-        <div class="content">
-          <h3>Judgement</h3>
-          <p>2:30 PM - Presentation And Judgement</p>
-        </div>
-      </div>
-      <div class="timeline-block left">
-        <div class="content">
-          <h3>Result Announcement</h3>
-          <p>3:00 PM - Announcement Of Winners and Prize Distribution</p>
         </div>
       </div>
     </div>
@@ -562,7 +453,7 @@
         Design & Aesthetics   30%,
         Functionality   30%,
         Innovation & Creativity   20%,
-        Code Quality & Structure   10%
+        Code Quality & Structure   10%,
         Responsiveness/User Experience   10%</li>
     </ul>
   </section>
