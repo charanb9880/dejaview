@@ -1,832 +1,1246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deja View - Memory Based Web Designing</title>
-    <style>
-      .prize-container {
-        display: flex;
-        flex-direction: column; /* Stack vertically by default */
-        gap: 1.5rem; /* Adjust gap */
-        margin-top: 2rem;
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCEND - Web Development Competition</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom right, #f9fafb, #f3f4f6);
+      color: #1f2937;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header styles */
+    header {
+      padding: 1.5rem 1rem;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Section styles */
+    section {
+      padding: 4rem 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    section.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s ease-out;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: #3b82f6;
+      border-radius: 2px;
+    }
+
+    /* Hero section */
+    .hero {
+      background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 60%;
+    }
+
+    .date-badge {
+      font-size: 1.125rem;
+      color: #3b82f6;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 .blue {
+      color: #3b82f6;
+    }
+
+    .hero h1 .purple {
+      color: #8b5cf6;
+    }
+
+    .hero-desc {
+      color: #6b7280;
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 36rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2563eb;
+    }
+
+    .hero-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .hero-detail-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-detail-item svg {
+      color: #3b82f6;
+      margin-right: 0.75rem;
+    }
+
+    .hero-detail-item .detail-text {
+      font-size: 1rem;
+    }
+
+    /* About section */
+    .about-desc {
+      text-align: center;
+      max-width: 48rem;
+      margin: 0 auto 4rem;
+      font-size: 1.125rem;
+      color: #6b7280;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .feature-card:nth-child(1) .feature-icon {
+      background-color: #eff6ff;
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+      background-color: #f5f3ff;
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      background-color: #fdf2f8;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .feature-desc {
+      color: #6b7280;
+      text-align: center;
+    }
+
+    /* Timeline section */
+    .timeline-container {
+      max-width: 48rem;
+      margin: 4rem auto 0;
+      position: relative;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #93c5fd, #c4b5fd, #a5b4fc);
+      border-radius: 2px;
+      display: none;
+    }
+
+    .timeline-event {
+      margin-bottom: 3rem;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .timeline-event.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s ease-out;
+    }
+
+    .timeline-dot {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-dot svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: white;
+    }
+
+    .timeline-content {
+      background-color: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-time {
+      color: #3b82f6;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .timeline-time svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .timeline-desc {
+      color: #6b7280;
+    }
+
+    /* Prizes section */
+    .prizes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 3rem;
     }
 
     .prize-card {
-        /* flex: 1 1 250px; */ /* Remove flex-basis for stacking */
-        background: #2d2a44;
-        border-radius: 12px; /* Adjust radius */
-        padding: 1.5rem 1rem; /* Adjust padding */
-        text-align: center;
-        color: #f0f0f0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
+      background-color: #1f2937;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      min-width: 250px;
     }
-
-     /* Apply flex row layout only on larger screens */
-     @media screen and (min-width: 600px) {
-        .prize-container {
-            flex-direction: row; /* Side-by-side on larger screens */
-             flex-wrap: wrap; /* Allow wrapping if needed */
-            justify-content: center;
-        }
-         .prize-card {
-             flex: 1 1 220px; /* Allow cards to grow/shrink */
-             max-width: 300px; /* Optional: Limit max width */
-         }
-     }
-
 
     .prize-card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+      transform: scale(1.05);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .gold { border-top: 4px solid gold; background: #333333; color: #ffd700; }
-    .silver { border-top: 4px solid silver; background: #2f2f2f; color: #c0c0c0; }
-    .bronze { border-top: 4px solid #cd7f32; background: #3a3a3a; color: #cd7f32; }
-
-    /* Notes and Messages */
-    .certificate-note, .goodies-message {
-        padding: 1.5rem 1rem; /* Adjust padding */
-        margin: 2rem 0; /* Adjust margin */
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    .prize-card.gold {
+      border-top: 4px solid #fbbf24;
+      color: #fbbf24;
     }
 
-    .certificate-note {
-        background: #2f2f2f;
-        color: #dfe1de;
-        font-weight: bold;
+    .prize-card.silver {
+      border-top: 4px solid #e5e7eb;
+      color: #e5e7eb;
     }
 
-    .goodies-message {
-        background: linear-gradient(to right, #00c6ff, #0072ff);
+    .prize-card.bronze {
+      border-top: 4px solid #d97706;
+      color: #d97706;
     }
 
-    .goodies-message p {
-        color: #ffffff;
-        font-size: 1.1rem; /* Adjust font size */
-        margin-bottom: 1.5rem;
+    .prize-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.75rem;
     }
 
-    .goodies-message a {
-        padding: 0.8rem 1.8rem; /* Adjust button padding */
-        background: linear-gradient(to right, #ffffff, #00ffff);
-        color: #1b1f3b;
-        border-radius: 40px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: background 0.3s ease, color 0.3s ease; /* Add color transition */
-        display: inline-block; /* Ensure padding applies correctly */
+    .prize-amount {
+      font-size: 1.25rem;
     }
 
-    .goodies-message a:hover {
-        background: #00c6ff;
+    .participation-note {
+      background-color: #1f2937;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      max-width: 32rem;
+      margin: 2.5rem auto;
+    }
+
+    .goodies-banner {
+      background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+      color: white;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-radius: 0.75rem;
+      max-width: 32rem;
+      margin: 2rem auto;
+    }
+
+    .goodies-text {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-register {
+      background-color: white;
+      color: #3b82f6;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-block;
+    }
+
+    .btn-register:hover {
+      background-color: #f9fafb;
+      color: #2563eb;
+    }
+
+    /* Rules section */
+    .rules-section {
+      background: linear-gradient(135deg, #f3e8ff, #e0f2fe);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 4rem 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+
+    .rules-section:hover {
+      transform: scale(1.01);
+    }
+
+    .rules-container {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .rules-card {
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-title svg {
+      margin-right: 0.5rem;
+    }
+
+    .rules-list {
+      list-style: none;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .rule-item.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s ease-out;
+    }
+
+    .rule-check {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .rule-check svg {
+      width: 1rem;
+      height: 1rem;
+      color: white;
+    }
+
+    .rule-text {
+      color: #1f2937;
+    }
+
+    .judging-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+    }
+
+    .judging-item {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .judging-item.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s ease-out;
+    }
+
+    .judge-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .judge-title svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    .judge-percent {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    /* Footer styles */
+    footer {
+      background: linear-gradient(to right, #1f2937, #111827);
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .footer-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-col h3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .footer-col p {
+      color: #d1d5db;
+      max-width: 20rem;
+      line-height: 1.6;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 0.5rem;
+      color: #d1d5db;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-icon {
+      margin-right: 0.5rem;
+    }
+
+    .contact-link {
+      color: #d1d5db;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: #60a5fa;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .footer-divider {
+      border-top: 1px solid #374151;
+      margin: 2rem 0;
+    }
+
+    .organizer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .organizer-logos {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo {
+  width: 70px;            /* Increased size */
+  height: 70px;
+  border-radius: 50%;     /* Makes the logos circular */
+  object-fit: cover;      /* Ensures proper scaling */
+  margin: 0 10px;         /* Adds horizontal spacing */
+}
+.logo-box {
+  display: inline-block;  /* Makes logos align side by side */
+}
+
+
+
+
+    .organizer-text {
+      color: #d1d5db;
+      font-size: 1.125rem;
+    }
+
+    .copyright {
+      text-align: center;
+      color: #9ca3af;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid #374151;
+    }
+
+    /* Media queries */
+    @media (min-width: 768px) {
+      .timeline-line {
+        display: block;
+      }
+
+      .timeline-dot {
+        display: flex;
+      }
+
+      .timeline-event {
+        display: flex;
+        align-items: center;
+      }
+
+      .timeline-event:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-content {
+        width: calc(50% - 2rem);
+      }
+
+      .timeline-event:nth-child(odd) .timeline-content {
+        margin-right: 1rem;
+      }
+
+      .timeline-event:nth-child(even) .timeline-content {
+        margin-left: 1rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .timeline-event {
+        padding-left: 2.5rem;
+        position: relative;
+      }
+
+      .timeline-dot-mobile {
+        position: absolute;
+        left: 0;
+        top: 1.5rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timeline-dot-mobile svg {
+        width: 1rem;
+        height: 1rem;
         color: white;
+      }
     }
 
-    /* Rules */
-    #rules ul, #rules ol {
-        padding-left: 1.5rem; /* Keep indentation */
-        line-height: 1.7; /* Slightly increase for readability */
-    }
-    #rules li {
-        margin-bottom: 0.5rem; /* Add space between rules */
+    /* Animation keyframes */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a56db;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: #1a56db;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: #6366f1;
-        }
-        
-        .hero {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fa 100%);
-            border-radius: 20px;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            width: 60%;
-            padding-left: 40px;
-        }
-        
-        .date {
-            font-size: 18px;
-            color: #1a56db;
-            margin-bottom: 20px;
-        }
-        
-        .title {
-            font-size: 56px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-        
-        .title-blue {
-            color: #1a56db;
-        }
-        
-        .title-purple {
-            color: #8b5cf6;
-        }
-        
-        .subtitle {
-            font-size: 18px;
-            color: #4b5563;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: #1a56db;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #1e429f;
-        }
-        
-        .btn-secondary {
-            background-color: white;
-            color: #1a56db;
-            border: 1px solid #1a56db;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #f3f4f6;
-        }
-        
-        .arrow-icon {
-            margin-left: 8px;
-        }
-        
-        .event-details {
-            display: flex;
-            margin-top: 50px;
-            gap: 30px;
-        }
-        
-        .detail-item {
-            display: flex;
-            align-items: center;
-            margin-right: 30px;
-        }
-        
-        .detail-item svg {
-            margin-right: 10px;
-            color: #1a56db;
-        }
-        
-        .hero-image {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 35%;
-            height: auto;
-        }
-        
-        .event-info {
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .section-title {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: #1a56db;
-            border-radius: 2px;
-        }
-        
-        .title-dark {
-            color: #111827;
-        }
-        
-        .title-blue {
-            color: #1a56db;
-        }
-        
-        .event-description {
-            max-width: 800px;
-            margin: 0 auto 50px;
-            font-size: 18px;
-            color: #4b5563;
-            line-height: 1.8;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #e9eefa;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-        
-        .feature-icon.blue {
-            background-color: #e9eefa;
-        }
-        
-        .feature-icon.purple {
-            background-color: #f3e8ff;
-        }
-        
-        .feature-icon.pink {
-            background-color: #fce7f3;
-        }
-        
-        .feature-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-        
-        .feature-icon.blue svg {
-            color: #1a56db;
-        }
-        
-        .feature-icon.purple svg {
-            color: #8b5cf6;
-        }
-        
-        .feature-icon.pink svg {
-            color: #ec4899;
-        }
-        
-        .feature-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #111827;
-        }
-        
-        .feature-description {
-            color: #4b5563;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        
-        .timeline {
-            padding: 80px 0;
-            position: relative;
-        }
-        
-        .timeline-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .timeline-center-line {
-            position: absolute;
-            width: 4px;
-            background-color: #e5e7eb;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .timeline-item {
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 30px;
-            position: relative;
-            margin-bottom: 40px;
-            width: 50%;
-        }
-        
-        .timeline-item:nth-child(even) {
-            justify-content: flex-start;
-            padding-right: 0;
-            padding-left: 30px;
-            margin-left: 50%;
-        }
-        
-        .timeline-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: #1a56db;
-            position: absolute;
-            top: 15px;
-            right: -12px;
-            z-index: 1;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-dot {
-            right: auto;
-            left: -12px;
-        }
-        
-        .timeline-content {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            position: relative;
-            max-width: 350px;
-        }
-        
-        .timeline-time {
-            font-weight: 600;
-            color: #1a56db;
-            margin-bottom: 8px;
-        }
-        
-        .timeline-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #111827;
-        }
-        
-        .timeline-description {
-            color: #4b5563;
-            font-size: 14px;
-        }
-        
-        .registration {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-            border-radius: 20px;
-            padding: 60px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .registration-title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #8b5cf6;
-            margin-bottom: 20px;
-        }
-        
-        .registration-subtitle {
-            font-size: 18px;
-            color: #4b5563;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        footer {
-            background-color: #1e293b;
-            color: white;
-            padding: 40px 0;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .footer-links {
-            display: flex;
-        }
-        
-        .footer-links a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: #93c5fd;
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #374151;
-            font-size: 14px;
-            color: #9ca3af;
-        }
-        
-        @media (max-width: 1024px) {
-            .hero-content {
-                width: 100%;
-                padding: 0 20px;
-            }
-            
-            .hero-image {
-                display: none;
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 20px 0;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 15px;
-            }
-            
-            .title {
-                font-size: 42px;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .event-details {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline-item, .timeline-item:nth-child(even) {
-                width: 100%;
-                padding: 0 0 0 60px;
-                margin-left: 0;
-                justify-content: flex-start;
-            }
-            
-            .timeline-center-line {
-                left: 30px;
-            }
-            
-            .timeline-dot, .timeline-item:nth-child(even) .timeline-dot {
-                right: auto;
-                left: 18px;
-            }
-            
-            .registration {
-                padding: 40px 20px;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-links {
-                margin-top: 20px;
-                justify-content: center;
-            }
-        }
-    </style>
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+      }
+      
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+      }
+      
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">Deja View</div>
+  <div class="container">
+    <header>
+      <div class="logo">Deja View</div>
+    </header>
     
-        </header>
-        
-        <section class="hero">
-            <div class="hero-content">
-                <div class="date">May 8th, 2025 </div>
-                <h1 class="title">
-                    <span class="title-blue">Deja </span>
-                    <span class="title-purple">View</span>
-                </h1>
-                <h2 class="subtitle">Craft the perfect observations, showcase your memory skills, and win amazing prizes in this ultimate challenge!</h2>
-                <div class="cta-buttons">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScubC2HVNkuX-dYUzu7hF51BShYS2q6kwIRqp-HRYE4k9Vh5g/viewform?usp=header" class="btn btn-primary">
-                        Register Now
-                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                
-                </div>
-                
-                <div class="event-details">
-                    <div class="detail-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        <span>May 8th, 2025 11:30AM</span>
-                    </div>
-                    <div class="detail-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        <span>MBA SMARTROOM</span>
-                        <p>Entry Fee:&#8377;100 Per Team</p>
-                    </div>
-      
-                    </div>
-                    
-                </div>
+    <main>
+      <!-- Hero Section -->
+      <section id="hero" class="hero">
+        <div class="hero-content">
+          <div class="date-badge">May 8th, 2025</div>
+          <h1>
+            <span class="blue">Deja </span>
+            <span class="purple">View</span>
+          </h1>
+          <p class="hero-desc">
+            Craft the perfect observations, showcase your memory skills, and win amazing prizes in this ultimate challenge!
+          </p>
+          
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScubC2HVNkuX-dYUzu7hF51BShYS2q6kwIRqp-HRYE4k9Vh5g/viewform?usp=header" target="_blank" class="btn btn-primary">
+            Register Now
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          
+          <div class="hero-details">
+            <div class="hero-detail-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span class="detail-text">May 8th, 2025 11:30AM-2:00PM</span>
             </div>
             
-            <div class="hero-image">
-                            </div>
-        </section>
-        
-        <section id="about" class="event-info">
-            <h2 class="section-title"><span class="title-dark">About </span><span class="title-blue">The Event</span></h2>
-            <p class="event-description">
-            
-              “Deja View” is an inter-college web development competition where participants recreate a given website within a time limit, focusing on design accuracy, code quality, and creative enhancements. It emphasizes frontend skills, user experience, and innovative thinking in a practical, high-pressure setting.
-            </p>
-            
-            <section>
-              <div class="features">
-                  <div class="feature-card">
-                      <div class="feature-icon blue">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-                      </div>
-                      <h3 class="feature-title">Pixel-Perfect Recreation</h3>
-                      <p class="feature-description">
-                          Showcase your precision and attention to detail by recreating the given website as accurately as possible, capturing its layout, style, and structure.
-                      </p>
-                  </div>
-                  
-                  <div class="feature-card">
-                      <div class="feature-icon purple">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <circle cx="12" cy="12" r="10"></circle>
-                              <line x1="12" y1="8" x2="12" y2="12"></line>
-                              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                          </svg>
-                      </div>
-                      <h3 class="feature-title">Creative Twists</h3>
-                      <p class="feature-description">
-                          Go beyond imitation by adding your own innovative flair — enhance user interaction, improve layout, or introduce subtle animations that elevate the user experience.
-                      </p>
-                  </div>
-                  
-                  <div class="feature-card">
-                      <div class="feature-icon pink">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                          </svg>
-                      </div>
-                      <h3 class="feature-title">Competitive Spirit</h3>
-                      <p class="feature-description">
-                          Compete with top developers across colleges as your submissions are judged on creativity, code quality, responsiveness, and user-centric design.
-                      </p>
-                  </div>
+            <div class="hero-detail-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <div>
+                <span class="detail-text">MBA SMARTROOM</span><br>
+                <span class="detail-text" style="font-size: 0.875rem; color: #6b7280;">Entry Fee: ₹100 Per Team</span>
               </div>
-          </section>
-          
-        
-        <section id="schedule" class="timeline">
-            <h2 class="section-title"><span class="title-dark">Event </span><span class="title-blue">Timeline</span></h2>
-            
-            <div class="timeline-container">
-                <div class="timeline-center-line"></div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">11:00 AM</div>
-                        <div class="timeline-title">Welcome</div>
-                        <div class="timeline-description">Participants can check in and event inaugration takes place</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">11:30 AM</div>
-                        <div class="timeline-title">Website Display</div>
-                        <div class="timeline-description">Website to be designed will be displayed</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">11:45 AM</div>
-                        <div class="timeline-title">Start Coding</div>
-                        <div class="timeline-description">Participants can start the coding</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">01:00 PM</div>
-                        <div class="timeline-title">Break</div>
-                        <div class="timeline-description">Refreshments Will Be Provided</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">02:00 PM</div>
-                        <div class="timeline-title">Evaluation Begins</div>
-                        <div class="timeline-description">Judges will start evaluating the teams.</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">3:00 PM</div>
-                        <div class="timeline-title">Results</div>
-                        <div class="timeline-description">Winners Announcement & Prize Distribution</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">03:30 PM</div>
-                        <div class="timeline-title">Closing Ceremony</div>
-                        <div class="timeline-description">Tips and Suggestions from the jury and closing of the event</div>
-                    </div>
-                </div>
-                
-             
             </div>
-        </section>
-
-  <section id="merch">
-    <h2>Prizes</h2>
-    <div class="prize-container">
-      <div class="prize-card gold">
-        <h3>1st Prize</h3>
-        <p>&#8377;2000 + Certificate Of Excellence</p>
-      </div>
-      <div class="prize-card silver">
-        <h3>2nd Prize</h3>
-        <p>&#8377;1500 + Certificate Of Excellence</p>
-      </div>
-      <div class="prize-card bronze">
-        <h3>3rd Prize</h3>
-        <p>&#8377;1000 + Certificate Of Excellence</p>
-      </div>
-    </div>
-    <div class="certificate-note">
-        <p>Participation Certificates will be provided to all participants!</p>
-    </div>
-    <div class="goodies-message">
-        <p>Top 20 teams to register will receive exciting goodies !</p>
-        <a href="https://forms.gle/jXBvNanBoLsJnJXC9">Register Now</a>
-      </div>
-    </section>
-  </section>
-        
-        <section id="register" class="registration">
-          <h2>Rules & Guidelines</h2>
-          <ul>
-            <li style="text-align: left">Each team can have a minimum of 1 and maximum of 2 participants.</li>
-            <li style="text-align: left">Participants must bring their own laptops and chargers.</li>
-            <li style="text-align: left">Internet access will be provided during the event.</li>
-            <li style="text-align: left">The reference website will be displayed only once, so pay close attention.</li>
-            <li style="text-align: left">Teams will be judged on accuracy, creativity, code quality, responsiveness, and user interface.</li>
-            <li style="text-align: left">Use of any frameworks or libraries (like Bootstrap, Tailwind, etc.) is allowed.</li>
-            <li style="text-align: left">Plagiarism or copying from other teams is strictly prohibited and may lead to disqualification.</li>
-            <li style="text-align: left">Decisions made by the judging panel will be final and binding.</li>
-            <li style="text-align: left">Judging Criteria:
-              Design & Aesthetics   30%,
-              Functionality   30%,
-              Innovation & Creativity   20%,
-              Code Quality & Structure   10%
-              Responsiveness/User Experience   10%</li>
-          </ul>
-          
-                
-        </section>
-    </div>
-    
-    <footer
-       <div class="copyright">
-                &copy; 2025 ASCEND
-            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- About Event Section -->
+      <section id="about">
+        <h2 class="section-title">
+          <span style="color: #1f2937;">About </span>
+          <span style="color: #3b82f6;">The Event</span>
+        </h2>
+        
+        <p class="about-desc">
+          "Deja View" is an inter-college web development competition where participants recreate a given website within a time limit, focusing on design accuracy, code quality, and creative enhancements. It emphasizes frontend skills, user experience, and innovative thinking in a practical, high-pressure setting.
+        </p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon" style="background-color: #eff6ff;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="feature-title">Pixel-Perfect Recreation</h3>
+            <p class="feature-desc">
+              Showcase your precision and attention to detail by recreating the given website as accurately as possible, capturing its layout, style, and structure.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon" style="background-color: #f5f3ff;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Creative Twists</h3>
+            <p class="feature-desc">
+              Go beyond imitation by adding your own innovative flair — enhance user interaction, improve layout, or introduce subtle animations that elevate the user experience.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon" style="background-color: #fdf2f8;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Competitive Spirit</h3>
+            <p class="feature-desc">
+              Compete with top developers across colleges as your submissions are judged on creativity, code quality, responsiveness, and user-centric design.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline Section -->
+      <section id="schedule">
+        <h2 class="section-title">
+          <span style="color: #1f2937;">Event </span>
+          <span style="color: #3b82f6;">Timeline</span>
+        </h2>
+        
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+          
+          <!-- Timeline events will be populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Prizes Section -->
+      <section id="prizes">
+        <h2 class="section-title">
+          <span style="color: #1f2937;">Prizes</span>
+        </h2>
+        
+        <div class="prizes-grid">
+          <div class="prize-card gold">
+            <h3 class="prize-title">Winners</h3>
+            <p class="prize-amount">Cash Prize </p>
+          </div>
+          
+          <div class="prize-card silver">
+            <h3 class="prize-title">Participants</h3>
+            <p class="prize-amount">Certificates</p>
+          </div>
+          
+          <div class="prize-card bronze">
+            <h3 class="prize-title">Merchandise</h3>
+            <p class="prize-amount">Exciting Goodies</p>
+          </div>
+        </div>
+        
+        <div class="participation-note">
+          <p>Participation Certificates will be provided to all participants!</p>
+        </div>
+        
+        <div class="goodies-banner">
+          <p class="goodies-text">Top 20 teams to register will receive exciting goodies!</p>
+          <a href="https://forms.gle/jXBvNanBoLsJnJXC9" target="_blank" class="btn-register">Register Now</a>
+        </div>
+      </section>
+
+      <!-- Rules Section -->
+      <section id="rules" class="rules-section">
+        <h2 class="section-title">
+          <span style="color: #1f2937;">Rules & Guidelines</span>
+        </h2>
+        
+        <div class="rules-container">
+          <div class="rules-card">
+            <h3 class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              Competition Rules
+            </h3>
+            <ul class="rules-list">
+              <!-- Rules will be populated by JavaScript -->
+            </ul>
+          </div>
+
+      
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ASCEND</h3>
+            <p>
+              Join us for an exciting web development competition where you can showcase your skills and win amazing prizes!
+            </p>
+          </div>
+          
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <ul class="contact-list">
+              <li class="contact-item">
+                <span class="contact-icon">📧</span>
+                <a href="mailto:contactascend.pesce@gmail.com" class="contact-link">contactascend.pesce@gmail.com</a>
+              </li>
+              
+              <li class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>P.E.S College OF Engineering, Mandya</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3>Connect With Us</h3>
+            <a 
+              href="https://www.instagram.com/ascend_pesce?igsh=MWh0NHJhZGF5eDhnMw%3D%3D&utm_source=qr" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="social-btn"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>Follow on Instagram</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-divider"></div>
+        
+        <div class="organizer-content">
+          <div class="organizer-logos">
+            <div class="logo-box">
+              <img class="footer-logo" src="ascend.png" alt="ASCEND"></div>
+            
+            <div class="logo-box">
+              <img class="footer-logo" src="csbs.png" alt="CSBS Logo">
+            </div>
+          </div>
+          <p class="organizer-text">Organized by ASCEND Club CSBS</p>
+        </div>
+        
+        <div class="copyright">
+          &copy; <span id="currentYear"></span> ASCEND | All Rights Reserved
+        </div>
+      </div>
     </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Timeline data
+    const timelineEvents = [
+      {
+        time: "11:30 AM",
+        title: "Welcome",
+        description: "Participants can check in and event inauguration takes place",
+        icon: "clock"
+      },
+      {
+        time: "11:45 AM",
+        title: "Website Display",
+        description: "Website to be designed will be displayed",
+        icon: "calendar"
+      },
+      {
+        time: "12:00 PM",
+        title: "Start Coding",
+        description: "Participants can start the coding",
+        icon: "clock"
+      },
+      {
+        time: "1:00 PM",
+        title: "Break",
+        description: "Refreshments Will Be Provided",
+        icon: "calendar"
+      },
+      {
+        time: "01:15 PM",
+        title: "Evaluation Begins",
+        description: "Judges will start evaluating the teams.",
+        icon: "clock"
+      },
+      {
+        time: "01:45 PM",
+        title: "Results",
+        description: "Winners Announcement & Prize Distribution",
+        icon: "calendar"
+      },
+      {
+        time: "02:00 PM",
+        title: "Closing Ceremony",
+        description: "Tips and Suggestions from the jury and closing of the event",
+        icon: "clock"
+      }
+    ];
+
+    // Rules data
+    const rules = [
+      "Each team can have a minimum of 1 and maximum of 2 participants.",
+      "Participants must bring their own laptops and chargers.",
+      "Internet access will be provided during the event.",
+      "The reference website will be displayed only once, so pay close attention.",
+      "Teams will be judged on accuracy, creativity, code quality, responsiveness, and user interface.",
+      "Use of any frameworks or libraries (like Bootstrap, Tailwind, etc.) is allowed.",
+      "Plagiarism or copying from other teams is strictly prohibited and may lead to disqualification.",
+      "Decisions made by the judging panel will be final and binding."
+    ];
+
+    // Judging criteria data
+    const judgingCriteria = [
+   
+    ];
+
+    // SVG Icons
+    const icons = {
+      clock: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+      calendar: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>',
+      check: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+      layout: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
+      code: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
+      award: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>',
+      shield: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+    };
+
+    // Get current year for copyright
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Populate timeline events
+    const timelineContainer = document.querySelector('.timeline-container');
+    
+    timelineEvents.forEach((event, index) => {
+      const timelineEvent = document.createElement('div');
+      timelineEvent.className = 'timeline-event';
+      timelineEvent.setAttribute('data-index', index);
+      
+      // Create mobile dot (visible only on small screens)
+      const mobileDot = document.createElement('div');
+      mobileDot.className = 'timeline-dot-mobile';
+      mobileDot.innerHTML = icons[event.icon];
+      
+      // Create dot (visible only on larger screens)
+      const dot = document.createElement('div');
+      dot.className = 'timeline-dot';
+      dot.innerHTML = icons[event.icon];
+      
+      // Create content
+      const content = document.createElement('div');
+      content.className = 'timeline-content';
+      content.innerHTML = `
+        <div class="timeline-time">
+          ${icons.clock}
+          ${event.time}
+        </div>
+        <h3 class="timeline-title">${event.title}</h3>
+        <p class="timeline-desc">${event.description}</p>
+      `;
+      
+      // Append elements
+      timelineEvent.appendChild(mobileDot);
+      timelineEvent.appendChild(dot);
+      timelineEvent.appendChild(content);
+      
+      timelineContainer.appendChild(timelineEvent);
+    });
+
+    // Populate rules
+    const rulesList = document.querySelector('.rules-list');
+    
+    rules.forEach((rule, index) => {
+      const ruleItem = document.createElement('li');
+      ruleItem.className = 'rule-item';
+      ruleItem.setAttribute('data-index', index);
+      
+      const ruleCheck = document.createElement('div');
+      ruleCheck.className = 'rule-check';
+      ruleCheck.innerHTML = icons.check;
+      
+      const ruleText = document.createElement('span');
+      ruleText.className = 'rule-text';
+      ruleText.textContent = rule;
+      
+      ruleItem.appendChild(ruleCheck);
+      ruleItem.appendChild(ruleText);
+      
+      rulesList.appendChild(ruleItem);
+    });
+
+    // Populate judging criteria
+    const judgingGrid = document.querySelector('.judging-grid');
+    
+    judgingCriteria.forEach((criterion, index) => {
+      const item = document.createElement('div');
+      item.className = 'judging-item';
+      item.setAttribute('data-index', index);
+      
+      item.innerHTML = `
+        <div class="judge-title">
+          ${icons[criterion.icon]}
+          <span>${criterion.name}</span>
+        </div>
+        <div class="judge-percent">${criterion.percent}</div>
+      `;
+      
+      judgingGrid.appendChild(item);
+    });
+
+    // Intersection Observer for animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate sections
+      const sections = document.querySelectorAll('section');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            sectionObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        sectionObserver.observe(section);
+      });
+      
+      // Animate timeline events
+      const timelineEvents = document.querySelectorAll('.timeline-event');
+      const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, entry.target.getAttribute('data-index') * 150);
+            timelineObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      timelineEvents.forEach(event => {
+        timelineObserver.observe(event);
+      });
+      
+      // Animate rule items
+      const ruleItems = document.querySelectorAll('.rule-item');
+      const ruleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, entry.target.getAttribute('data-index') * 100);
+            ruleObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      ruleItems.forEach(item => {
+        ruleObserver.observe(item);
+      });
+      
+      // Animate judging criteria items
+      const judgingItems = document.querySelectorAll('.judging-item');
+      const judgingObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, entry.target.getAttribute('data-index') * 100 + 900);
+            judgingObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      judgingItems.forEach(item => {
+        judgingObserver.observe(item);
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
 </html>
