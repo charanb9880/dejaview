@@ -27,53 +27,68 @@
     }
 
     /* Header */
-    header {
+/* Header */
+header {
     background: linear-gradient(to right, #f8c8dc, #ffd1b3);
     color: white;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* Header Row - Flex Layout */
 .header-row {
     display: flex;
     justify-content: space-between; /* Ensure logos are on opposite sides */
-    align-items: center;
+    align-items: center; /* Vertically center logos and title */
     gap: 2rem; /* Space between logos and title */
-    flex-wrap: nowrap; /* Prevent wrapping */
     padding: 1rem;
 }
 
-.logo {
-    height: 50px; /* Increased logo size */
+.header-row .logo {
+    height: 50px; /* Adjust logo size */
     width: auto; /* Maintain aspect ratio */
-    border-radius: 50%;
-    object-fit: contain; /* Ensure the logo scales properly */
-    background-color: #827ac9;
-    box-shadow: none;
-    border: none;
+    object-fit: contain;
+    border-radius: 50%; /* Round the logos */
 }
 
 .event-title {
     font-size: 2.5rem;
-    background: linear-gradient(to right, #ff6ec4, #7873f5);
+    background: linear-gradient(to right, #8e44ad, #3498db); /* Modern Purple to Blue */
+''
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
     font-weight: 700;
     margin: 0;
-    text-align: center; /* Center title */
-    flex-grow: 1; /* Allow title to take remaining space */
+    text-align: center;
+    flex-grow: 1; /* Allows title to grow and take up remaining space */
 }
 
-/* Align ASCEND logo to left and CSBS logo to right */
-.header-row .ascend-logo {
-    order: -1; /* Move ASCEND logo to the left */
+/* Ensure logos are aligned on the left and right sides */
+.ascend-logo {
+    order: -1; /* ASCEND logo on the left */
 }
 
-.header-row .csbs-logo {
-    order: 1; /* Keep CSBS logo on the right */
+.csbs-logo {
+    order: 1; /* CSBS logo on the right */
 }
+
+
+/* Mobile Navigation Styles */
+@media screen and (max-width: 768px) {
+    .header-row {
+        flex-direction: row; /* Ensure row layout on mobile */
+    }
+    .ascend-logo {
+        order: -1; /* Move ASCEND logo to left */
+    }
+    .csbs-logo {
+        order: 1; /* Move CSBS logo to right */
+    }
+}
+
 
 
 
@@ -482,14 +497,14 @@
   </style>
 </head>
 <body>
-    <header>
-        <div class="header-row">
-          <img src="ascend.png" alt="ASCEND Club Logo" class="logo">
-          <h1 class="event-title">Deja View</h1>
-          <img src="csbs logo.jpg" alt="CSBS Department Logo" class="logo">
-        </div>
-        
-      </header>
+  <header>
+    <div class="header-row">
+      <img src="ascend.png" alt="ASCEND Club Logo" class="logo ascend-logo">
+      <h1 class="event-title">Deja View</h1>
+      <img src="csbs logo.jpg" alt="CSBS Department Logo" class="logo csbs-logo">
+    </div>
+  </header>
+  
 
 
       
@@ -509,6 +524,7 @@
     </br>
      <p color="black"><b>Date:May 8th, 2025,11:30 AM</b></p>
      <p><b>Venue:M.B.A SmartRoom</b></p>
+     <p><b>Entry Fee: &#8377;100 Per Team</b></p>
     <a href="https://forms.gle/jXBvNanBoLsJnJXC9" class="register-btn" target="_blank">Register Now</a>
   </section>
 
