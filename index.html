@@ -5,6 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deja View - Memory Based Web Designing</title>
     <style>
+      .prize-container {
+        display: flex;
+        flex-direction: column; /* Stack vertically by default */
+        gap: 1.5rem; /* Adjust gap */
+        margin-top: 2rem;
+    }
+
+    .prize-card {
+        /* flex: 1 1 250px; */ /* Remove flex-basis for stacking */
+        background: #2d2a44;
+        border-radius: 12px; /* Adjust radius */
+        padding: 1.5rem 1rem; /* Adjust padding */
+        text-align: center;
+        color: #f0f0f0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+     /* Apply flex row layout only on larger screens */
+     @media screen and (min-width: 600px) {
+        .prize-container {
+            flex-direction: row; /* Side-by-side on larger screens */
+             flex-wrap: wrap; /* Allow wrapping if needed */
+            justify-content: center;
+        }
+         .prize-card {
+             flex: 1 1 220px; /* Allow cards to grow/shrink */
+             max-width: 300px; /* Optional: Limit max width */
+         }
+     }
+
+
+    .prize-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+    }
+
+    .gold { border-top: 4px solid gold; background: #333333; color: #ffd700; }
+    .silver { border-top: 4px solid silver; background: #2f2f2f; color: #c0c0c0; }
+    .bronze { border-top: 4px solid #cd7f32; background: #3a3a3a; color: #cd7f32; }
+
+    /* Notes and Messages */
+    .certificate-note, .goodies-message {
+        padding: 1.5rem 1rem; /* Adjust padding */
+        margin: 2rem 0; /* Adjust margin */
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .certificate-note {
+        background: #2f2f2f;
+        color: #dfe1de;
+        font-weight: bold;
+    }
+
+    .goodies-message {
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+    }
+
+    .goodies-message p {
+        color: #ffffff;
+        font-size: 1.1rem; /* Adjust font size */
+        margin-bottom: 1.5rem;
+    }
+
+    .goodies-message a {
+        padding: 0.8rem 1.8rem; /* Adjust button padding */
+        background: linear-gradient(to right, #ffffff, #00ffff);
+        color: #1b1f3b;
+        border-radius: 40px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease, color 0.3s ease; /* Add color transition */
+        display: inline-block; /* Ensure padding applies correctly */
+    }
+
+    .goodies-message a:hover {
+        background: #00c6ff;
+        color: white;
+    }
+
+    /* Rules */
+    #rules ul, #rules ol {
+        padding-left: 1.5rem; /* Keep indentation */
+        line-height: 1.7; /* Slightly increase for readability */
+    }
+    #rules li {
+        margin-bottom: 0.5rem; /* Add space between rules */
+    }
+
         * {
             margin: 0;
             padding: 0;
@@ -681,6 +772,32 @@
              
             </div>
         </section>
+
+  <section id="merch">
+    <h2>Prizes</h2>
+    <div class="prize-container">
+      <div class="prize-card gold">
+        <h3>1st Prize</h3>
+        <p>&#8377;2000 + Certificate Of Excellence</p>
+      </div>
+      <div class="prize-card silver">
+        <h3>2nd Prize</h3>
+        <p>&#8377;1500 + Certificate Of Excellence</p>
+      </div>
+      <div class="prize-card bronze">
+        <h3>3rd Prize</h3>
+        <p>&#8377;1000 + Certificate Of Excellence</p>
+      </div>
+    </div>
+    <div class="certificate-note">
+        <p>Participation Certificates will be provided to all participants!</p>
+    </div>
+    <div class="goodies-message">
+        <p>Top 20 teams to register will receive exciting goodies !</p>
+        <a href="https://forms.gle/jXBvNanBoLsJnJXC9">Register Now</a>
+      </div>
+    </section>
+  </section>
         
         <section id="register" class="registration">
           <h2>Rules & Guidelines</h2>
