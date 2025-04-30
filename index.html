@@ -1,581 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deja View - Event Information</title>
-  <style>
-    :root {
-      --primary-color: #2563eb;
-      --secondary-color: #9333ea;
-      --tertiary-color: #ec4899;
-      --background-color: #eef2ff;
-      --text-color: #1e293b;
-      --text-light: #64748b;
-      --card-bg: #ffffff;
-      --accent-color: #818cf8;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-    }
-    
-    body {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-    
-    header {
-      background: var(--background-color);
-      padding: 2rem 1rem;
-      text-align: left;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .event-date {
-      color: var(--primary-color);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-    
-    .logo {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      letter-spacing: -1px;
-      line-height: 1.1;
-      background: linear-gradient(90deg, var(--primary-color), var(--tertiary-color));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    
-    .logo-gradient {
-      background: linear-gradient(90deg, var(--secondary-color), var(--tertiary-color));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    
-    .tagline {
-      font-size: 1.4rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-      max-width: 650px;
-      font-weight: 400;
-    }
-    
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1rem;
-      background-color: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .nav-logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--primary-color);
-    }
-    
-    .nav-links {
-      display: flex;
-      list-style: none;
-    }
-    
-    .nav-links li {
-      margin: 0 1rem;
-    }
-    
-    .nav-links a {
-      color: var(--text-color);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
-    }
-    
-    .nav-links a:hover {
-      color: var(--primary-color);
-    }
-    
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--text-color);
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .hero-content {
-      flex: 1;
-    }
-    
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 16px;
-    }
-    
-    .event-details {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .detail-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-    
-    .detail-item i {
-      color: var(--primary-color);
-      font-size: 1.2rem;
-    }
-    
-    section {
-      margin-bottom: 3rem;
-      background-color: var(--card-bg);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    }
-    
-    h2 {
-      color: var(--primary-color);
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-    
-    h3 {
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: var(--secondary-color);
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-    
-    p {
-      margin-bottom: 1rem;
-      color: var(--text-light);
-    }
-    
-    ul, ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--text-light);
-    }
-    
-    li {
-      margin-bottom: 0.75rem;
-    }
-    
-    .timeline {
-      position: relative;
-      max-width: 800px;
-      margin: 2rem auto 0;
-    }
-    
-    .timeline-item {
-      padding: 1.5rem;
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-      position: relative;
-      border-left: 4px solid var(--primary-color);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-    
-    .timeline-item:hover {
-      transform: translateX(5px);
-    }
-    
-    .time {
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 0.75rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      text-align: center;
-      justify-content: center;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary-color);
-    }
-    
-    .btn-outline {
-      background-color: transparent;
-      border: 1px solid var(--primary-color);
-      color: var(--primary-color);
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn-group {
-      display: flex;
-      gap: 1rem;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
-    
-    .register-container {
-      text-align: center;
-      margin: 3rem 0;
-    }
-    
-    footer {
-      background-color: var(--card-bg);
-      color: var(--text-light);
-      text-align: center;
-      padding: 3rem 1rem;
-      margin-top: 3rem;
-      border-top: 1px
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deja View - Memory Based Web Designing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a56db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #1a56db;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #6366f1;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fa 100%);
+            border-radius: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            width: 60%;
+            padding-left: 40px;
+        }
+        
+        .date {
+            font-size: 18px;
+            color: #1a56db;
+            margin-bottom: 20px;
+        }
+        
+        .title {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .title-blue {
+            color: #1a56db;
+        }
+        
+        .title-purple {
+            color: #8b5cf6;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #4b5563;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #1a56db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e429f;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #1a56db;
+            border: 1px solid #1a56db;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .arrow-icon {
+            margin-left: 8px;
+        }
+        
+        .event-details {
+            display: flex;
+            margin-top: 50px;
+            gap: 30px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+        
+        .detail-item svg {
+            margin-right: 10px;
+            color: #1a56db;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35%;
+            height: auto;
+        }
+        
+        .event-info {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #1a56db;
+            border-radius: 2px;
+        }
+        
+        .title-dark {
+            color: #111827;
+        }
+        
+        .title-blue {
+            color: #1a56db;
+        }
+        
+        .event-description {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: 18px;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #e9eefa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .feature-icon.blue {
+            background-color: #e9eefa;
+        }
+        
+        .feature-icon.purple {
+            background-color: #f3e8ff;
+        }
+        
+        .feature-icon.pink {
+            background-color: #fce7f3;
+        }
+        
+        .feature-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .feature-icon.blue svg {
+            color: #1a56db;
+        }
+        
+        .feature-icon.purple svg {
+            color: #8b5cf6;
+        }
+        
+        .feature-icon.pink svg {
+            color: #ec4899;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+        
+        .feature-description {
+            color: #4b5563;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .timeline {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-center-line {
+            position: absolute;
+            width: 4px;
+            background-color: #e5e7eb;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 30px;
+            margin-left: 50%;
+        }
+        
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #1a56db;
+            position: absolute;
+            top: 15px;
+            right: -12px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -12px;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            max-width: 350px;
+        }
+        
+        .timeline-time {
+            font-weight: 600;
+            color: #1a56db;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+        
+        .timeline-description {
+            color: #4b5563;
+            font-size: 14px;
+        }
+        
+        .registration {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .registration-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #8b5cf6;
+            margin-bottom: 20px;
+        }
+        
+        .registration-subtitle {
+            font-size: 18px;
+            color: #4b5563;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        footer {
+            background-color: #1e293b;
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .footer-links {
+            display: flex;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #93c5fd;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #374151;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-content {
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 15px;
+            }
+            
+            .title {
+                font-size: 42px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .event-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item, .timeline-item:nth-child(even) {
+                width: 100%;
+                padding: 0 0 0 60px;
+                margin-left: 0;
+                justify-content: flex-start;
+            }
+            
+            .timeline-center-line {
+                left: 30px;
+            }
+            
+            .timeline-dot, .timeline-item:nth-child(even) .timeline-dot {
+                right: auto;
+                left: 18px;
+            }
+            
+            .registration {
+                padding: 40px 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                margin-top: 20px;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="event-date">May 8th, 2025</div>
-    <div class="logo">DEJA <span class="logo-gradient">VIEW</span></div>
-    <div class="tagline">Craft the perfect observations, showcase your memory skills, and win amazing prizes in this ultimate challenge!</div>
-    
-    <div class="btn-group">
-      <a href="#register" class="btn btn-primary">Register Now →</a>
-      <a href="#rules" class="btn btn-outline">View Rulebook →</a>
+    <div class="container">
+        <header>
+            <div class="logo">Deja View</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScubC2HVNkuX-dYUzu7hF51BShYS2q6kwIRqp-HRYE4k9Vh5g/viewform?usp=header">Register</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <div class="date">May 8th, 2025 </div>
+                <h1 class="title">
+                    <span class="title-blue">Deja </span>
+                    <span class="title-purple">View</span>
+                </h1>
+                <h2 class="subtitle">Craft the perfect observations, showcase your memory skills, and win amazing prizes in this ultimate challenge!</h2>
+                <div class="cta-buttons">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScubC2HVNkuX-dYUzu7hF51BShYS2q6kwIRqp-HRYE4k9Vh5g/viewform?usp=header" class="btn btn-primary">
+                        Register Now
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                
+                </div>
+                
+                <div class="event-details">
+                    <div class="detail-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span>May 8th, 2025 11:30AM</span>
+                    </div>
+                    <div class="detail-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>MBA SMARTROOM</span>
+                    </div>
+      
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                            </div>
+        </section>
+        
+        <section id="about" class="event-info">
+            <h2 class="section-title"><span class="title-dark">About </span><span class="title-blue">The Event</span></h2>
+            <p class="event-description">
+            
+              “Deja View” is an inter-college web development competition where participants recreate a given website within a time limit, focusing on design accuracy, code quality, and creative enhancements. It emphasizes frontend skills, user experience, and innovative thinking in a practical, high-pressure setting.
+            </p>
+            
+            <section>
+              <div class="features">
+                  <div class="feature-card">
+                      <div class="feature-icon blue">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                          </svg>
+                      </div>
+                      <h3 class="feature-title">Pixel-Perfect Recreation</h3>
+                      <p class="feature-description">
+                          Showcase your precision and attention to detail by recreating the given website as accurately as possible, capturing its layout, style, and structure.
+                      </p>
+                  </div>
+                  
+                  <div class="feature-card">
+                      <div class="feature-icon purple">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="12" cy="12" r="10"></circle>
+                              <line x1="12" y1="8" x2="12" y2="12"></line>
+                              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                          </svg>
+                      </div>
+                      <h3 class="feature-title">Creative Twists</h3>
+                      <p class="feature-description">
+                          Go beyond imitation by adding your own innovative flair — enhance user interaction, improve layout, or introduce subtle animations that elevate the user experience.
+                      </p>
+                  </div>
+                  
+                  <div class="feature-card">
+                      <div class="feature-icon pink">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                          </svg>
+                      </div>
+                      <h3 class="feature-title">Competitive Spirit</h3>
+                      <p class="feature-description">
+                          Compete with top developers across colleges as your submissions are judged on creativity, code quality, responsiveness, and user-centric design.
+                      </p>
+                  </div>
+              </div>
+          </section>
+          
+        
+        <section id="schedule" class="timeline">
+            <h2 class="section-title"><span class="title-dark">Event </span><span class="title-blue">Timeline</span></h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-center-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">11:00 AM</div>
+                        <div class="timeline-title">Welcome</div>
+                        <div class="timeline-description">Participants can check in and event inaugration takes place</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">11:30 AM</div>
+                        <div class="timeline-title">Website Display</div>
+                        <div class="timeline-description">Website to be designed will be displayed</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">11:45 AM</div>
+                        <div class="timeline-title">Start Coding</div>
+                        <div class="timeline-description">Participants can start the coding</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">01:00 PM</div>
+                        <div class="timeline-title">Break</div>
+                        <div class="timeline-description">Refreshments Will Be Provided</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">02:00 PM</div>
+                        <div class="timeline-title">Evaluation Begins</div>
+                        <div class="timeline-description">Judges will start evaluating the teams.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">3:00 PM</div>
+                        <div class="timeline-title">Results</div>
+                        <div class="timeline-description">Winners Announcement & Prize Distribution</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">03:30 PM</div>
+                        <div class="timeline-title">Closing Ceremony</div>
+                        <div class="timeline-description">Tips and Suggestions from the jury and closing of the event</div>
+                    </div>
+                </div>
+                
+             
+            </div>
+        </section>
+        
+        <section id="register" class="registration">
+          <h2>Rules & Guidelines</h2>
+          <ul>
+            <li style="text-align: left">Each team can have a minimum of 1 and maximum of 2 participants.</li>
+            <li style="text-align: left">Participants must bring their own laptops and chargers.</li>
+            <li style="text-align: left">Internet access will be provided during the event.</li>
+            <li style="text-align: left">The reference website will be displayed only once, so pay close attention.</li>
+            <li style="text-align: left">Teams will be judged on accuracy, creativity, code quality, responsiveness, and user interface.</li>
+            <li style="text-align: left">Use of any frameworks or libraries (like Bootstrap, Tailwind, etc.) is allowed.</li>
+            <li style="text-align: left">Plagiarism or copying from other teams is strictly prohibited and may lead to disqualification.</li>
+            <li style="text-align: left">Decisions made by the judging panel will be final and binding.</li>
+            <li style="text-align: left">Judging Criteria:
+              Design & Aesthetics   30%,
+              Functionality   30%,
+              Innovation & Creativity   20%,
+              Code Quality & Structure   10%
+              Responsiveness/User Experience   10%</li>
+          </ul>
+          
+                
+        </section>
     </div>
     
-    <div class="event-details">
-      <div class="detail-item">
-        <i>📅</i>
-        <span>May 8th, 2025</span>
-      </div>
-      <div class="detail-item">
-        <i>📍</i>
-        <span>AI & ML Lab, PESCE</span>
-      </div>
-      <div class="detail-item">
-        <i>👥</i>
-        <span>2 Members per Team</span>
-      </div>
-      <div class="detail-item">
-        <i>🏆</i>
-        <span>₹10,000 Prize Pool</span>
-      </div>
-    </div>
-  </header>
-  
-  <nav>
-    <div class="nav-logo">DEJA VIEW</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#timeline">Timeline</a></li>
-      <li><a href="#rules">Rules</a></li>
-      <li><a href="#register">Register</a></li>
-    </ul>
-    <button class="hamburger">☰</button>
-  </nav>
-  
-  <div class="container">
-    <section id="about">
-      <div class="section-title">
-        <h2>About <span>The Event</span></h2>
-      </div>
-      
-      <div class="about-text">
-        <p>"Deja View" is a creative observation and memory-powered event where teams use their perceptive abilities to solve challenges by recalling visual details. The goal is to emphasize creativity, clarity, logic, and memory, testing your ability to notice and recall the smallest details.</p>
-      </div>
-      
-      <div class="features" id="features">
-        <div class="feature-card">
-          <div class="feature-icon blue">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
-              <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            </svg>
-          </div>
-          <h3 class="feature-title">Creative Observation</h3>
-          <p class="feature-desc">Showcase your ability to notice and recall visual details through carefully crafted challenges.</p>
+    <footer
+       <div class="copyright">
+                &copy; 2025 ASCEND
+            </div>
         </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon purple">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-            </svg>
-          </div>
-          <h3 class="feature-title">Team Collaboration</h3>
-          <p class="feature-desc">Work in teams of two to solve challenging memory problems through effective collaboration.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon pink">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
-            </svg>
-          </div>
-          <h3 class="feature-title">Amazing Prizes</h3>
-          <p class="feature-desc">Compete for a prize pool of ₹10,000 and showcase your observation and memory skills.</p>
-        </div>
-      </div>
-    </section>
-    
-    <section id="rules">
-      <h2>Rules & Guidelines</h2>
-      <h3>General Rules</h3>
-      <ul>
-        <li>All participants must register before the deadline to be eligible for participation.</li>
-        <li>Participants must arrive at least 30 minutes before their scheduled activity time.</li>
-        <li>Valid photo identification is required for verification at the venue.</li>
-        <li>Use of electronic devices during activities is strictly prohibited unless specifically permitted.</li>
-        <li>The decision of the judges will be final and binding.</li>
-      </ul>
-      
-      <h3>Participation Guidelines</h3>
-      <ul>
-        <li>Follow all instructions provided by event coordinators.</li>
-        <li>Maintain a respectful environment for all participants.</li>
-        <li>Adhere to the time limits for each activity.</li>
-        <li>Any form of cheating or unfair practice will result in immediate disqualification.</li>
-        <li>Participants are responsible for their personal belongings.</li>
-      </ul>
-      
-      <h3>Scoring Criteria</h3>
-      <ul>
-        <li>Accuracy of observations</li>
-        <li>Speed of recall</li>
-        <li>Attention to detail</li>
-        <li>Problem-solving abilities</li>
-        <li>Creativity in approaches (where applicable)</li>
-      </ul>
-    </section>
-    
-    <section id="timeline">
-      <div class="section-title">
-        <h2>Event <span>Timeline</span></h2>
-      </div>
-      
-      <div class="vertical-timeline">
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">09:00 AM</div>
-            <div class="timeline-title">Registration</div>
-            <p>Teams arrive and complete the registration process.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">09:30 AM</div>
-            <div class="timeline-title">Opening Ceremony</div>
-            <p>Welcome address and event introduction.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">10:00 AM</div>
-            <div class="timeline-title">Round 1</div>
-            <p>Commencement of the first round of the event.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">11:00 AM</div>
-            <div class="timeline-title">Refreshments</div>
-            <p>Snacks and drinks break for participants.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">11:15 AM</div>
-            <div class="timeline-title">Round 2</div>
-            <p>Second round begins after the refreshments.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">12:30 PM</div>
-            <div class="timeline-title">Round 3</div>
-            <p>Final competitive round of the event.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">01:40 PM</div>
-            <div class="timeline-title">Final Judging</div>
-            <p>Judges evaluate the final round performances.</p>
-          </div>
-        </div>
-        
-        <div class="timeline-event">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="timeline-time">02:00 PM</div>
-            <div class="timeline-title">Closing & Results</div>
-            <p>Closing ceremony and announcement of results.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <section id="register">
-      <div class="section-title">
-        <h2>Join <span>The Challenge</span></h2>
-      </div>
-      
-      <p class="about-text">Ready to test your observational prowess? Register for Deja View now and secure your spot in this unique event. Early registration comes with special benefits!</p>
-      
-      <h3>Registration Information</h3>
-      <ul>
-        <li><strong>Registration Fee:</strong> ₹200 per team</li>
-        <li><strong>Last Date for Registration:</strong> May 5th, 2025</li>
-        <li><strong>Registration Package Includes:</strong> Event participation, refreshments, participant kit, certificate of participation</li>
-      </ul>
-      
-      <div class="register-container">
-        <a href="#" class="btn btn-primary" id="registration-link">Register Now →</a>
-      </div>
-      
-      <p>For group registrations or any queries regarding the registration process, please contact us at dejaview@pesce.ac.in</p>
-    </section>
-  </div>
-  
-  <footer>
-    <div>© 2025 Deja View. All Rights Reserved.</div>
-    <div class="contact-info">
-      <p>For inquiries: dejaview@pesce.ac.in | +91 9876543210</p>
-      <p>Follow us on social media: @DejaViewEvent</p>
-    </div>
-  </footer>
-  
-  <script>
-    // Script to update the registration link when provided
-    document.addEventListener('DOMContentLoaded', function() {
-      const registrationButton = document.getElementById('registration-link');
-      
-      // You can update this link with the one provided
-      // registrationButton.href = "your-registration-link-here";
-      
-      // Mobile menu toggle
-      const hamburger = document.querySelector('.hamburger');
-      const navLinks = document.querySelector('.nav-links');
-      
-      hamburger.addEventListener('click', function() {
-        navLinks.classList.toggle('show');
-      });
-      
-      // Smooth scrolling for navigation
-      document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-          
-          if (navLinks.classList.contains('show')) {
-            navLinks.classList.remove('show');
-          }
-        });
-      });
-    });
-  </script>
-
-  <script>
-    // Script to update the registration link when provided
-    document.addEventListener('DOMContentLoaded', function() {
-      const registrationButton = document.getElementById('registration-link');
-      
-      // You can update this link with the one provided
-      // registrationButton.href = "your-registration-link-here";
-      
-      // Smooth scrolling for navigation
-      document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          window.scrollTo({
-            top: targetElement.offsetTop - 100,
-            behavior: 'smooth'
-          });
-        });
-      });
-    });
-  </script>
-</body>
+    </footer>
 </html>
