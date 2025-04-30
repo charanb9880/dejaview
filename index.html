@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Deja View - An ASCEND Club Event by CSBS Department">
+  <title>Deja View | Memory Based Web Design Challenge</title>
+  <link rel="icon" type="image/png" href="ascend.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .header-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #0f0c29;
+      box-shadow: none;
+      border: none;
+    }
+
+    .event-title {
+      font-size: 3.2rem;
+      background: linear-gradient(to right, #ff6ec4, #7873f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
+      color: #ecf0f1;
+    }
+
+    header {
+      background: linear-gradient(to right, #2b5876, #4e4376);
+      color: white;
+      padding: 3rem 2rem 2rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .event-title {
+      font-size: 3.5rem;
+      background: linear-gradient(to right, #ff6ec4, #7873f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: none;
+    }
+
+    header .logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    header .logos img {
+      height: 80px;
+      width: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: none;
+      border: none;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #00ffff;
+      text-shadow: 0 0 5px rgba(0,255,255,0.8);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #1b1f3b;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #ffffff;
+      margin: 0 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00ffff;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      margin: 2rem auto;
+      max-width: 1000px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .event {
+      min-width: 220px;
+      background: #1f1c2c;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      padding: 1rem;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      transition: transform 0.3s;
+    }
+
+    .event:hover {
+      transform: scale(1.05);
+    }
+
+    .merch-item {
+      background: #1f1c2c;
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .register-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    .register-btn:hover {
+      background: #005bea;
+    }
+
+    footer {
+      background: #1b1f3b;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 4rem;
+    }
+
+    .social-icons {
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #00ffff;
+    }
+
+    .vertical-timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .vertical-timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #00ffff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-block {
+      position: relative;
+      width: 50%;
+      padding: 1rem 2rem;
+      box-sizing: border-box;
+    }
+
+    .timeline-block.left {
+      left: 0;
+    }
+
+    .timeline-block.right {
+      left: 50%;
+    }
+
+    .timeline-block::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background-color: #00ffff;
+      border: 3px solid white;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-block.left::before {
+      right: -10px;
+    }
+
+    .timeline-block.right::before {
+      left: -10px;
+    }
+
+    .timeline-block .content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    @media screen and (max-width: 768px) {
+      .timeline-block,
+      .timeline-block.left,
+      .timeline-block.right {
+        width: 100%;
+        left: 0;
+        padding-left: 4rem;
+        padding-right: 1rem;
+      }
+
+      .timeline-block::before {
+        left: 20px;
+      }
+
+      .vertical-timeline::after {
+        left: 30px;
+      }
+    }
+
+    .prize-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .prize-card {
+      flex: 1 1 250px;
+      background: #2d2a44;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .prize-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+    }
+
+    .gold {
+      border-top: 4px solid gold;
+      background: #333333;
+      color: #ffd700;
+    }
+
+    .silver {
+      border-top: 4px solid silver;
+      background: #2f2f2f;
+      color: #c0c0c0;
+    }
+
+    .bronze {
+      border-top: 4px solid #cd7f32;
+      background: #3a3a3a;
+      color: #cd7f32;
+    }
+
+    #connect {
+      
+      padding: 3rem 2rem;
+      color: #ffffff;
+      text-align: center;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-top: 4rem;
+    }
+
+    #connect h2 {
+      color: #ff6ec4;
+      margin-bottom: 1.5rem;
+    }
+
+    #connect i {
+      font-size: 3rem;
+      color: #ff6ec4;
+      transition: color 0.3s;
+    }
+
+    #connect i:hover {
+      color: #00ffff;
+    }
+
+    .certificate-note {
+      background: #2f2f2f;
+      color: #dfe1de;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    .goodies-message {
+  background: linear-gradient(to right, #00c6ff, #0072ff); /* updated gradient */
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.goodies-message p {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.goodies-message a {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #ffffff, #00ffff); /* button gradient updated */
+  color: #1b1f3b;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.goodies-message a:hover {
+  background: #00c6ff;
+  color: white;
+}
+
+
+  </style>
+</head>
+<body>
+    <header>
+        <div class="header-row">
+          <img src="ascend.png" alt="ASCEND Club Logo" class="logo">
+          <h1 class="event-title">Deja View</h1>
+          <img src="csbs logo.jpg" alt="CSBS Department Logo" class="logo">
+        </div>
+        <p style="text-align: center;">Presented by ASCEND Club - CSBS Department</p>
+      </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#flow">Schedule</a>
+    <a href="#merch">Merchandise</a>
+    <a href="#prizes">Prizes</a>
+    <a href="#rules">Rules</a>
+    <a href="https://forms.gle/jXBvNanBoLsJnJXC9">Register</a>
+  </nav>
+
+  <section id="about">
+    <h2>About the Event</h2>
+    <p>Deja View is an exciting inter-college web development competition where teams are tasked with recreating a website presented to them at the event. Participants will leverage their frontend skills to redesign the site while retaining its core features and functionality. The challenge encourages creativity and technical proficiency, allowing teams to showcase their unique approaches to layout, design, and user interaction.
+
+        Final submissions will be judged based on how closely they align with the original website’s concept, code quality, visual appeal, user-friendliness, and any innovative enhancements. This event fosters collaboration and inspires budding web developers to push the boundaries of their creativity and technical abilities.</p>
+    <!-- Register Button -->
+    <a href="https://forms.gle/jXBvNanBoLsJnJXC9" class="register-btn" target="_blank">Register Now</a>
+  </section>
+
+  <section id="flow">
+    <h2>Flow of Events</h2>
+    <div class="vertical-timeline">
+      <div class="timeline-block left">
+        <div class="content">
+          <h3>Opening</h3>
+          <p>11:30 AM - Welcome & Introduction</p>
+        </div>
+      </div>
+      <div class="timeline-block right">
+        <div class="content">
+          <h3>Display</h3>
+          <p>12:00 PM - Website will be displayed</p>
+        </div>
+      </div>
+      <div class="timeline-block left">
+        <div class="content">
+          <h3>Break</h3>
+          <p>1:00 PM - Short break for refreshments</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="merch">
+    <h2>Prizes</h2>
+    <div class="prize-container">
+      <div class="prize-card gold">
+        <h3>1st Prize</h3>
+        <p>&#8377;2000 + Certificate Of Excellence</p>
+      </div>
+      <div class="prize-card silver">
+        <h3>2nd Prize</h3>
+        <p>&#8377;1500 + Certificate Of Excellence</p>
+      </div>
+      <div class="prize-card bronze">
+        <h3>3rd Prize</h3>
+        <p>&#8377;1000 + Certificate Of Excellence</p>
+      </div>
+    </div>
+    <div class="certificate-note">
+        <p>Participation Certificates will be provided to all participants!</p>
+    </div>
+    <div class="goodies-message">
+        <p>Top 20 teams to register will receive exciting goodies !</p>
+        <a href="https://forms.gle/jXBvNanBoLsJnJXC9">Register Now</a>
+      </div>
+    </section>
+  </section>
+  <section id="rules">
+    <h2>Rules & Guidelines</h2>
+    <ul>
+      <li>Each team can have a minimum of 1 and maximum of 2 participants.</li>
+      <li>Participants must bring their own laptops and chargers.</li>
+      <li>Internet access will be provided during the event.</li>
+      <li>The reference website will be displayed only once, so pay close attention.</li>
+      <li>Teams will be judged on accuracy, creativity, code quality, responsiveness, and user interface.</li>
+      <li>Use of any frameworks or libraries (like Bootstrap, Tailwind, etc.) is allowed.</li>
+      <li>Plagiarism or copying from other teams is strictly prohibited and may lead to disqualification.</li>
+      <li>Decisions made by the judging panel will be final and binding.</li>
+      <li>Judging Criteria:
+        Design & Aesthetics   30%,
+        Functionality   30%,
+        Innovation & Creativity   20%,
+        Code Quality & Structure   10%,
+        Responsiveness/User Experience   10%</li>
+    </ul>
+  </section>
+  
+
+  <section id="connect">
+    <h2>Connect with Us</h2>
+    <div>
+      <a href="https://www.instagram.com/ascend_pesce?igsh=MWh0NHJhZGF5eDhnMw%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 ASCEND Club - CSBS Department </p>
+  </footer>
+</body>
+</html>
