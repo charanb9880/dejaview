@@ -28,45 +28,55 @@
 
     /* Header */
     header {
-      background:linear-gradient(to right, #f8c8dc, #ffd1b3);
-        color: white;
-        /* Adjust padding for smaller screens */
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+    background: linear-gradient(to right, #f8c8dc, #ffd1b3);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 
-    .header-row {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0rem; /* Reduce gap for smaller screens */
-        flex-wrap: wrap;
-        margin-bottom: 1rem; /* Add space below header row */
-    }
+.header-row {
+    display: flex;
+    justify-content: space-between; /* Ensure logos are on opposite sides */
+    align-items: center;
+    gap: 2rem; /* Space between logos and title */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    padding: 1rem;
+}
 
-    .logo {
-        height: 60px; /* Slightly smaller logo */
-        width: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-        background-color: #827ac9;
-        box-shadow: none;
-        border: none;
-    }
+.logo {
+    height: 50px; /* Increased logo size */
+    width: auto; /* Maintain aspect ratio */
+    border-radius: 50%;
+    object-fit: contain; /* Ensure the logo scales properly */
+    background-color: #827ac9;
+    box-shadow: none;
+    border: none;
+}
 
-    .event-title {
-        font-size: 2.5rem; /* Adjust initial font size */
-        background: linear-gradient(to right, #ff6ec4, #7873f5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text; /* Standard property */
-        text-fill-color: transparent; /* Standard property */
-        font-weight: 700;
-        margin: 0;
-        text-shadow: none;
-        flex-basis: 100%; /* Allow title to take full width if needed */
-        order: 2; /* Ensure title is below logos on wrap */
-    }
+.event-title {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-weight: 700;
+    margin: 0;
+    text-align: center; /* Center title */
+    flex-grow: 1; /* Allow title to take remaining space */
+}
+
+/* Align ASCEND logo to left and CSBS logo to right */
+.header-row .ascend-logo {
+    order: -1; /* Move ASCEND logo to the left */
+}
+
+.header-row .csbs-logo {
+    order: 1; /* Keep CSBS logo on the right */
+}
+
+
+
 
      /* Ensure logos are ordered correctly when wrapped */
     .header-row img:first-of-type {
@@ -75,6 +85,10 @@
      .header-row img:last-of-type {
         order: 3;
     }
+    .header-row h1 {
+    flex-grow: 1; /* Ensure the event title takes up remaining space */
+    text-align: center; /* Center the event title */
+}
 
     header p {
         font-size: 0.9rem; /* Adjust subtitle size */
@@ -492,6 +506,9 @@
 
         Final submissions will be judged based on how closely they align with the original website’s concept, code quality, visual appeal, user-friendliness, and any innovative enhancements. This event fosters collaboration and inspires budding web developers to push the boundaries of their creativity and technical abilities.</p>
     <!-- Register Button -->
+    </br>
+     <p color="black"><b>Date:May 8th, 2025,11:30 AM</b></p>
+     <p><b>Venue:M.B.A SmartRoom</b></p>
     <a href="https://forms.gle/jXBvNanBoLsJnJXC9" class="register-btn" target="_blank">Register Now</a>
   </section>
 
